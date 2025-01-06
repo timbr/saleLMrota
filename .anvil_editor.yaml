@@ -1,5 +1,6 @@
 unique_ids:
   assets:
+    images.png: '1736195128097681480842216.2156'
     standard-page.html: DCIKSLIDNVUQ7NVV3VYUUIMLTI7BDO4N
     theme.css: IEDL5LE5IODP43PMHUJJ46SNA7U572T3
   forms:
@@ -7,7 +8,6 @@ unique_ids:
     BookingModal.ItemTemplate2: GYW3HCIJIHVO7ILKRWTTNKYM4AIB2O32
     Homepage: Z5SLA26VHRYSP3BUK7NOYISRUF47K6OJ
     Homepage.ItemTemplate1: WCNJVBMZXDVSTMKEJBCAE4QLKRRX4HNA
-    RoomPlanModal: 7G2QEMUFDFXN4Z4Y6TQYBJKGO45M5N7Y
   modules: {}
   scripts: {}
   server_modules:

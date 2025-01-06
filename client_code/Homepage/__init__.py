@@ -5,7 +5,6 @@ import anvil.server
 import anvil.tables as tables
 import anvil.tables.query as q
 from anvil.tables import app_tables
-from ..RoomPlanModal import RoomPlanModal
 
   
 class Homepage(HomepageTemplate):
@@ -18,7 +17,6 @@ class Homepage(HomepageTemplate):
     self.next_sunday = today + datetime.timedelta( (6-today.weekday()) % 7 )
     self.active_date = self.next_sunday
     self.refresh_bookings()
-    self.repeating_panel_1.set_event_handler('x-clear-booking', self.clear_booking)
 
   def button_date_forward_click(self, **event_args):
     """This method is called when the button is clicked"""
@@ -32,22 +30,45 @@ class Homepage(HomepageTemplate):
 
   def refresh_bookings(self):
     self.label_meeting_date.text = self.active_date.strftime("%A %-d %B %Y")
-    if self.active_date == self.next_sunday:
-      self.button_date_back.visible = False
+    bookings = app_tables.rota_bookings_table.search(meeting_date=self.active_date)
+    if len(bookings) == 0:
+      self.Flower_Person.text = ''
+      self.TeaCoffee_Person.text = ''
+      self.Door_Person.text = ''
     else:
-      self.button_date_back.visible = True
-    self.repeating_panel_1.items = anvil.server.call('get_bookings', self.active_date)
-
-  def link_1_click(self, **event_args):
-    """This method is called when the link is clicked"""
-    link_clicked = alert(
-      content=RoomPlanModal(),
-      title="Room Plan showing seating positions",
-      large=True,
-      buttons=[("Back", True)],
-    )
+      self.Flower_Person.text = bookings[0]['flowers_person']
+      self.TeaCoffee_Person.text = bookings[0]['drinks_person']
+      self.Door_Person.text = bookings[0]['door_person']
 
   def clear_booking(self, booking, **event_args):
     # clear the booking
     anvil.server.call('clear_booking', booking)
+    self.refresh_bookings()
+
+  def Flower_Person_change(self, **event_args):
+    """This method is called when focus is lost from this text box"""
+    bookings = app_tables.rota_bookings_table.search(meeting_date=self.active_date)
+    if len(bookings) == 0:
+        app_tables.rota_bookings_table.add_row(meeting_date=self.active_date, flowers_person=self.Flower_Person.text)
+    else:
+        bookings[0]['flowers_person'] = self.Flower_Person.text
+
+  def TeaCoffee_Person_lost_focus(self, **event_args):
+    """This method is called when the TextBox loses focus"""
+    bookings = app_tables.rota_bookings_table.search(meeting_date=self.active_date)
+    if len(bookings) == 0:
+        app_tables.rota_bookings_table.add_row(meeting_date=self.active_date, drinks_person=self.TeaCoffee_Person.text)
+    else:
+        bookings[0]['drinks_person'] = self.TeaCoffee_Person.text
+
+  def Door_Person_lost_focus(self, **event_args):
+    """This method is called when the TextBox loses focus"""
+    bookings = app_tables.rota_bookings_table.search(meeting_date=self.active_date)
+    if len(bookings) == 0:
+        app_tables.rota_bookings_table.add_row(meeting_date=self.active_date, door_person=self.Door_Person.text)
+    else:
+        bookings[0]['door_person'] = self.Door_Person.text
+
+  def button_save_click(self, **event_args):
+    """This method is called when the button is clicked"""
     self.refresh_bookings()

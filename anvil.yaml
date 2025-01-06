@@ -48,6 +48,23 @@ db_schema:
       type: datetime
     server: full
     title: bubblepeople
+  rota_bookings_table:
+    client: full
+    columns:
+    - admin_ui: {order: 0, width: 200}
+      name: meeting_date
+      type: date
+    - admin_ui: {order: 1, width: 200}
+      name: door_person
+      type: string
+    - admin_ui: {order: 2, width: 200}
+      name: flowers_person
+      type: string
+    - admin_ui: {order: 3, width: 200}
+      name: drinks_person
+      type: string
+    server: full
+    title: rota_bookings_table
   slots:
     client: none
     columns:
@@ -63,8 +80,8 @@ db_schema:
     server: full
     title: slots
 dependencies: []
-metadata: {}
-name: Clone of Quakerthing2
+metadata: {logo_img: 'asset:images.png', title: 'Door, Flowers, Tea & Coffee'}
+name: Quaker Door, Flowers, Tea & Coffee
 package_name: Quakerthing2
 renamed: true
 runtime_options: {client_version: '3', server_spec: null, server_version: python3-sandbox, version: 2}
