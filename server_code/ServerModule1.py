@@ -9,15 +9,19 @@ next_sunday = today + datetime.timedelta( (6-today.weekday()) % 7 )
 active_date = next_sunday
 
 @anvil.server.http_endpoint("/add_record", methods=["POST"])
-def add_record(data):
+def add_record(**q):
     """Add a record to the database."""
-    given_date = datetime.datetime.strptime(data['meeting_date'], "%d-%m-%Y").date()
+    given_date = datetime.datetime.strptime(anvil.server.request.body_json['meeting_date'], "%d-%m-%Y").date()
+    flowers_person = anvil.server.request.body_json['flowers_person']
+    drinks_person = anvil.server.request.body_json['drinks_person']
+    door_person = anvil.server.request.body_json['door_person']
     bookings = app_tables.rota_bookings_table.search(meeting_date=given_date)
     if len(bookings) == 0:
-        app_tables.rota_bookings_table.add_row(meeting_date=given_date, flowers_person=data['flowers_person'], drinks_person=data['drinks_person'], door_person=data['door_person'])
+        app_tables.rota_bookings_table.add_row(meeting_date=given_date, flowers_person=flowers_person, drinks_person=drinks_person, door_person=door_person)
     else:
-        bookings[0]['door_person'] = data['door_person']
-    app_tables.rota_bookings_table.add_row(meeting_date=given_date, flowers_person=data['flowers_person'], drinks_person=data['drinks_person'], door_person=data['door_person'])
+        bookings[0]['flowers_person'] = flowers_person
+        bookings[0]['drinks_person'] = drinks_person
+        bookings[0]['door_person'] = door_person
     return {"success": True}
 
 @anvil.server.http_endpoint("/get_records", methods=["GET"])
