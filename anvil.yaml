@@ -1,53 +1,6 @@
 allow_embedding: false
 correct_dependency_ids: {}
 db_schema:
-  bookings:
-    client: none
-    columns:
-    - admin_ui: {width: 200}
-      name: meeting_date
-      type: date
-    - admin_ui: {width: 200}
-      name: booker_name
-      type: string
-    - admin_ui: {width: 200}
-      name: booker_phone
-      type: string
-    - admin_ui: {width: 200}
-      name: booker_email
-      type: string
-    - admin_ui: {width: 200}
-      name: slot_name
-      target: slots
-      type: link_single
-    - admin_ui: {width: 200}
-      name: booked_timestamp
-      type: datetime
-    - admin_ui: {width: 200}
-      name: created_timestamp
-      type: datetime
-    server: full
-    title: bookings
-  bubblepeople:
-    client: none
-    columns:
-    - admin_ui: {width: 200}
-      name: meeting_date
-      type: date
-    - admin_ui: {width: 200}
-      name: slot_name
-      type: string
-    - admin_ui: {width: 200}
-      name: index
-      type: number
-    - admin_ui: {width: 200}
-      name: name
-      type: string
-    - admin_ui: {width: 200}
-      name: created_timestamp
-      type: datetime
-    server: full
-    title: bubblepeople
   rota_bookings_table:
     client: full
     columns:
@@ -65,20 +18,6 @@ db_schema:
       type: string
     server: full
     title: rota_bookings_table
-  slots:
-    client: none
-    columns:
-    - admin_ui: {width: 200}
-      name: view_order
-      type: number
-    - admin_ui: {width: 200}
-      name: slot_name
-      type: string
-    - admin_ui: {width: 200}
-      name: slot_capacity
-      type: string
-    server: full
-    title: slots
 dependencies:
 - dep_id: dep_qtkde589q7ro8b
   resolution_hints: {app_id: CJDF33FVBCUO6WUH, name: HTTP Endpoint, package_name: HTTP_Endpoint}
