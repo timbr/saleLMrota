@@ -66,3 +66,20 @@ def clear_booking(booking):
     booking['booker_email'] = None
   else:
     raise Exception("Booking does not exist")
+
+@anvil.server.http_endpoint("/add_record", methods=["POST"])
+def add_record(data):
+    """Add a record to the database."""
+    bookings = app_tables.rota_bookings_table.search(meeting_date=data['meeting_date'])
+    if len(bookings) == 0:
+        app_tables.rota_bookings_table.add_row(meeting_date=data['meeting_date'], door_person=data['door_person'])
+    else:
+        bookings[0]['door_person'] = data['door_person']
+    app_tables.rota_bookings_table.add_row(meeting_date=data['meeting_date'], door_person=data['door_person'])
+    return {"success": True}
+
+@anvil.server.http_endpoint("/get_records", methods=["GET"])
+def get_records():
+    """Retrieve all records from the database."""
+    bookings = app_tables.rota_bookings_table.search()
+    return [{"meetingDate": row['meeting_date'], "doorPerson": row['door_person']} for row in bookings]
