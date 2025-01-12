@@ -20,7 +20,8 @@ def add_record(**q):
       r.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
       r.status = 200
       return r
-    
+
+    print(anvil.server.request.body_json)
     given_date = datetime.datetime.strptime(anvil.server.request.body_json['meeting_date'], "%d-%m-%Y").date()
     flowers_person = anvil.server.request.body_json['flowers_person']
     drinks_person = anvil.server.request.body_json['drinks_person']
