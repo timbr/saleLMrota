@@ -47,12 +47,14 @@ main {
 label {
   font-weight: bold;
   margin-right: 10px;
+  min-width: 100px;
+  text-align: right;
 }
 
 input {
   width: 60%;
   max-width: 300px;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   padding: 8px;
 }
 
@@ -70,11 +72,22 @@ input {
   color: #4CAF50;
   margin-top: 0;
   margin-bottom: 16px;
+  font-size: 1.3rem;
 }
 
 @media (max-width: 600px) {
   .booking-card {
     margin: 16px;
+    padding: 12px;
+  }
+
+  label {
+    min-width: 90px;
+    font-size: 0.9rem;
+  }
+
+  input {
+    font-size: 1rem;
   }
 }
 
@@ -165,4 +178,33 @@ input {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+@media (max-width: 400px) {
+  .booking-card {
+    padding: 12px 8px;
+  }
+
+  .entry {
+    padding-right: 30px;
+  }
+
+  label {
+    min-width: 70px;
+    font-size: 0.85rem;
+    text-align: right;
+  }
+
+  input {
+    width: 140px;
+    min-width: 140px;
+    max-width: 140px;
+    font-size: 0.9rem;
+    flex: none;
+  }
+
+  .success-icon, .loading-icon {
+    right: 0;
+    font-size: 1.2rem;
+  }
 }

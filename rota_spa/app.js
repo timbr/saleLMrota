@@ -220,3 +220,23 @@ function moveWeek(days) {
   // Fetch data from the new date
   fetchData(newStartDate);
 }
+
+function createEntryElement(label, inputId, value = '') {
+  const entry = document.createElement('div');
+  entry.className = 'entry';
+  
+  const labelElement = document.createElement('label');
+  // Use shorter labels on mobile
+  if (window.innerWidth <= 400) {
+    const shortLabels = {
+      'Flowers': 'Flowers',
+      'Door': 'Door',
+      'Tea and Coffee': 'T&C'
+    };
+    labelElement.textContent = shortLabels[label] || label;
+  } else {
+    labelElement.textContent = label;
+  }
+  
+  // ... rest of the function
+}
