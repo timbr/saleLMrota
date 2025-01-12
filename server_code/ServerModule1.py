@@ -8,7 +8,7 @@ today = datetime.date.today()
 next_sunday = today + datetime.timedelta( (6-today.weekday()) % 7 )
 active_date = next_sunday
 
-@anvil.server.http_endpoint("/add_record", methods=["POST"])
+@anvil.server.http_endpoint("/add_record", enable_cors=True, methods=["POST"])
 def add_record(**q):
     """Add a record to the database."""
     given_date = datetime.datetime.strptime(anvil.server.request.body_json['meeting_date'], "%d-%m-%Y").date()
@@ -24,13 +24,13 @@ def add_record(**q):
         bookings[0]['door_person'] = door_person
     return {"success": True}
 
-@anvil.server.http_endpoint("/get_records", methods=["GET"])
+@anvil.server.http_endpoint("/get_records", enable_cors=True, methods=["GET"])
 def get_records():
     """Retrieve all records from the database."""
     bookings = app_tables.rota_bookings_table.search(tables.order_by('meeting_date'), q.all_of(meeting_date=q.greater_than_or_equal_to(active_date)))[:4]
     return [{"meetingDate": row['meeting_date'].strftime("%d-%m-%Y"), "doorPerson": row['door_person']} for row in bookings]
 
-@anvil.server.http_endpoint("/get_records/:start_date", methods=["GET"])
+@anvil.server.http_endpoint("/get_records/:start_date", enable_cors=True, methods=["GET"])
 def get_records_from_start_date(start_date, **params):
     """Retrieve all records from the database."""
     first_date = datetime.datetime.strptime(start_date, "%d-%m-%Y").date()
