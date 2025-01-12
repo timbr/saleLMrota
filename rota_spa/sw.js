@@ -1,10 +1,10 @@
 const CACHE_NAME = 'sale-lm-rota-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/styles.css',
-  '/app.js',
-  '/manifest.json'
+  '/saleLMrota/',
+  '/saleLMrota/index.html',
+  '/saleLMrota/styles.css',
+  '/saleLMrota/app.js',
+  '/saleLMrota/manifest.json'
 ];
 
 self.addEventListener('install', (event) => {
