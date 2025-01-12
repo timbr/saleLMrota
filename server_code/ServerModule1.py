@@ -22,7 +22,11 @@ def add_record(**q):
         bookings[0]['flowers_person'] = flowers_person
         bookings[0]['drinks_person'] = drinks_person
         bookings[0]['door_person'] = door_person
-    return {"success": True}
+    r = anvil.server.HttpResponse()
+    r.headers['access-control-allow-headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+    r.status = 200
+    r.body = {"success": True}
+    return r
 
 @anvil.server.http_endpoint("/get_records", enable_cors=True, methods=["GET"])
 def get_records():
