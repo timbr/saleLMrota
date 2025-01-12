@@ -8,9 +8,19 @@ today = datetime.date.today()
 next_sunday = today + datetime.timedelta( (6-today.weekday()) % 7 )
 active_date = next_sunday
 
-@anvil.server.http_endpoint("/add_record", enable_cors=True, methods=["POST"])
+@anvil.server.http_endpoint("/add_record", enable_cors=True, methods=["POST", "OPTIONS"])
 def add_record(**q):
     """Add a record to the database."""
+    # for ther CORS preflight check with OPTIONS
+    if anvil.server.request.method == 'OPTIONS':
+      r = anvil.server.HttpResponse()
+      r.headers['Access-Control-Allow-Origin'] = '*'
+      r.headers['Access-Control-Allow-Methods'] = 'POST, PUT, DELETE, GET, OPTIONS'
+      r.headers['Access-Control-Request-Method'] = '*'
+      r.headers['Access-Control-Allow-Headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
+      r.status = 200
+      return r
+    
     given_date = datetime.datetime.strptime(anvil.server.request.body_json['meeting_date'], "%d-%m-%Y").date()
     flowers_person = anvil.server.request.body_json['flowers_person']
     drinks_person = anvil.server.request.body_json['drinks_person']
@@ -22,11 +32,7 @@ def add_record(**q):
         bookings[0]['flowers_person'] = flowers_person
         bookings[0]['drinks_person'] = drinks_person
         bookings[0]['door_person'] = door_person
-    r = anvil.server.HttpResponse()
-    r.headers['access-control-allow-headers'] = 'Origin, X-Requested-With, Content-Type, Accept, Authorization'
-    r.status = 200
-    r.body = {"success": True}
-    return r
+    return {"success": True}
 
 @anvil.server.http_endpoint("/get_records", enable_cors=True, methods=["GET"])
 def get_records():
