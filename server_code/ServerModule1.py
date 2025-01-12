@@ -28,7 +28,7 @@ def add_record(**q):
 def get_records():
     """Retrieve all records from the database."""
     bookings = app_tables.rota_bookings_table.search(tables.order_by('meeting_date'), q.all_of(meeting_date=q.greater_than_or_equal_to(active_date)))[:4]
-    return [{"meetingDate": row['meeting_date'].strftime("%d-%m-%Y"), "doorPerson": row['door_person']} for row in bookings]
+    return [{"meetingDate": row['meeting_date'].strftime("%d-%m-%Y"), "flowersPerson": row['flowers_person'], "drinksPerson": row['drinks_person'], "doorPerson": row['door_person']} for row in bookings]
 
 @anvil.server.http_endpoint("/get_records/:start_date", enable_cors=True, methods=["GET"])
 def get_records_from_start_date(start_date, **params):
