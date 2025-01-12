@@ -9,11 +9,26 @@ body {
 header {
   background-color: #4CAF50;
   color: white;
-  padding: 10px;
+  padding: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
 }
 
 h1 {
   margin: 0;
+  font-size: 1.8rem;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+h1:hover {
+  transform: scale(1.05);
+}
+
+h1:active {
+  transform: scale(0.95);
 }
 
 main {
@@ -21,7 +36,12 @@ main {
 }
 
 .entry {
-  margin: 10px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 12px 0;
+  position: relative;
+  padding-right: 40px;
 }
 
 label {
@@ -30,8 +50,119 @@ label {
 }
 
 input {
-  padding: 5px;
-  width: 200px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  width: 60%;
+  max-width: 300px;
+  font-size: 1.2rem;
+  padding: 8px;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  margin: 16px auto;
+  padding: 16px;
+  max-width: 600px;
+  font-size: 1.1rem;
+}
+
+.booking-card h2 {
+  color: #4CAF50;
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 600px) {
+  .booking-card {
+    margin: 16px;
+  }
+}
+
+.success-icon {
+  color: #4CAF50;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.success-icon.visible {
+  opacity: 1;
+}
+
+.loading-icon {
+  color: #666;
+  position: absolute;
+  right: 0;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  animation: spin 1s linear infinite;
+}
+
+.loading-icon.visible {
+  opacity: 1;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+#back-button, #forward-button {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 2px solid white;
+  border-radius: 8px;
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px 16px;
+  transition: all 0.2s ease;
+}
+
+#back-button:hover, #forward-button:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  transform: scale(1.1);
+}
+
+#back-button:active, #forward-button:active {
+  transform: scale(0.95);
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.page-loader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.page-loader.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  border: 5px solid #f3f3f3;
+  border-top: 5px solid #4CAF50;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
 }

@@ -21,23 +21,16 @@
   </script>
 </head>
 <body>
+  <div id="page-loader" class="page-loader">
+    <div class="spinner"></div>
+  </div>
   <header>
-    <h1>Sale LM Rota</h1>
-    <h2 id="meetingDate"></h2>
+    <button id="back-button">⟪</button>
+    <h1 id="title" style="cursor: pointer;">Sale LM Rota</h1>
+    <button id="forward-button">⟫</button>
   </header>
-  <main>
-    <div class="entry">
-      <label for="flowers">Flowers:</label>
-      <input type="text" id="flowers" readonly>
-    </div>
-    <div class="entry">
-      <label for="drinks">Tea and Coffee:</label>
-      <input type="text" id="drinks" readonly>
-    </div>
-    <div class="entry">
-      <label for="door">Door:</label>
-      <input type="text" id="door" readonly>
-    </div>
+  <main id="bookings-container">
+    <!-- Booking cards will be inserted here dynamically -->
   </main>
   <script src="app.js"></script>
 </body>
